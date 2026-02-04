@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aesthetic Calculator</title>
+<style>
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #f6fbff;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: move 14s linear infinite;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: white;
+  border-radius: 50%;
+  top: 18%;
+  left: 22%;
+  opacity: 0.8;
+  filter: blur(1px);
+}
+
+.b1 {
+  width: 120px; 
+  height: 120px;
+  left: 10%;
+  top: 80%;
+  background: linear-gradient(135deg,#ffd6e8,#e7558d);
+}
+.b2 {
+  width: 80px;
+  height: 80px;
+  left: 70%;
+  top: 90%;
+  background: linear-gradient(135deg,#cdb4db,#ba7ef2);
+}
+.b3 {
+  width: 100px; 
+  height: 100px;
+  left: 40%; 
+  top: 85%;
+  background: linear-gradient(135deg,#bde0fe,#a2d2ff);
+}
+.b4 {
+  width: 60px; height: 60px;
+  left: 85%; top: 75%;
+  background: linear-gradient(135deg,#d1fae5,#79fcc1);
+}
+.b5 {
+   width: 120px;
+   height: 110px;
+   left: 20%;
+   top: 50%;
+   background:radial-gradient(circle at 30% 30%, #bbdaedaa, transparent 40%),
+   linear-gradient(135deg, #ffd6e8, #f1a5c2);
+}
+.b6 {
+  width: 100px;
+  height: 100px;
+  left: 80%;
+  top: 45%;
+  background: linear-gradient(135deg,#febdf3,#a2d2ff);
+}
+.b7 {
+  width: 100px; height: 100px;
+  right: 85%; top: 30%;
+  background: linear-gradient(135deg,#f0fad1,#eec6ab);
+}
+.b8 {
+  width: 120px;
+  height:120px;
+  left: 65%;
+  top: 20%;
+  background: linear-gradient(135deg,#71c2f5,#adc4ed);
+}
+@keyframes move {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); }
+}
+.calculator {
+  background: #d9ecf8;
+  padding: 24px;
+  width: 320px;
+  border-radius: 28px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  z-index: 1;
+}
+.display {
+  width: 92%;
+  height: 75px;
+  border-radius: 14px;
+  border: none;
+  background: #eef2f4;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+  font-size: 28px;
+  color: #333;
+  padding: 0 12px;
+  text-align: right;
+  line-height: 64px;
+  margin-bottom: 22px;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+button {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+.num { background:#ffd6e8; }
+.operator { background:#dbeafe; }
+.special { background:#d1fae5; }
+.equal {
+  background: #d0f1ce;
+  border-radius: 18px;
+  width: 145px;
+  grid-column: span 2;
+}
+
+</style>
+</head>
+<body>
+<div class="bubble b1"></div>
+<div class="bubble b2"></div>
+<div class="bubble b3"></div>
+<div class="bubble b4"></div>
+<div class="bubble b5"></div>
+<div class="bubble b6"></div>
+<div class="bubble b7"></div>
+<div class="bubble b8"></div>
+
+<div class="calculator">
+  <input id="display" class="display" readonly>
+
+  <div class="buttons">
+    <button class="func" onclick="press(this,'²')">x²</button>
+    <button class="func" onclick="press(this,'√')">√</button>
+    <button class="func" onclick="press(this,'^')">xy</button>
+    <button class="func" onclick="press(this,'C')">AC</button>
+
+
+    <button class="num" onclick="press(this,'7')">7</button>
+    <button class="num" onclick="press(this,'8')">8</button>
+    <button class="num" onclick="press(this,'9')">9</button>
+    <button class="op" onclick="press(this,'/')">÷</button>
+
+    <button class="num" onclick="press(this,'4')">4</button>
+    <button class="num" onclick="press(this,'5')">5</button>
+    <button class="num" onclick="press(this,'6')">6</button>
+    <button class="op" onclick="press(this,'*')">×</button>
+
+    <button class="num" onclick="press(this,'1')">1</button>
+    <button class="num" onclick="press(this,'2')">2</button>
+    <button class="num" onclick="press(this,'3')">3</button>
+    <button class="op" onclick="press(this,'-')">−</button>
+
+    <button class="num" onclick="press(this,'0')">0</button>
+    <button class="equal" onclick="press(this,'=')">=</button>
+    <button class="plus" onclick="press(this,'+')">+</button>
+  </div>
+</div>
+
+<script>
+const display = document.getElementById("display");
+const colors = ["#ffd6e8","#cdb4db","#bde0fe","#d1fae5","#fde2e4"];
+const sound = new Audio("click.mp3");
+sound.volume = 1;
+function press(btn, val) {
+  sound.currentTime = 0;
+  sound.play();
+
+  const old = btn.style.background;
+  btn.style.background = colors[Math.floor(Math.random()*colors.length)];
+  setTimeout(() => btn.style.background = old, 200);
+
+  if (val === "C") display.value = "";
+  else if (val === "=") {
+    try { display.value = eval(display.value); }
+    catch { display.value = "Error"; }
+  }
+  else if (val === "²") display.value = display.value ** 2;
+  else if (val === "√") display.value = Math.sqrt(display.value);
+  else if (val === "^") {
+    const b = prompt("Base:");
+    const p = prompt("Power:");
+    display.value = Math.pow(b, p);
+  }
+  else display.value += val;
+}
+</script>
+</body>
+</html>
